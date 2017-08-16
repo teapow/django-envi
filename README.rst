@@ -2,6 +2,9 @@
 django-envi
 ===========
 
+Introduction
+============
+
 Lightweight set of middleware classes that inject visual indicators for 
 each type of environment that a project is deployed to. Inspired by 
 `this article`_.
@@ -11,7 +14,7 @@ each type of environment that a project is deployed to. Inspired by
 .. image:: https://raw.githubusercontent.com/teapow/django-envi/master/docs/images/collage.png
 
 Quickstart
-----------
+==========
 
 1. Install the package: ``pip install django-envi``.
 2. Add the ``'envi'`` app to your ``INSTALLED_APPS``.
