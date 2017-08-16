@@ -12,9 +12,9 @@ Lightweight set of middleware classes that inject visual indicators for
 each type of environment that a project is deployed to. Inspired by 
 `this article`_.
 
-.. _this article: https://hackernoon.com/5-ways-to-make-django-admin-safer-eb7753698ac8
+.. _this article: https://goo.gl/7cLsOH
 
-.. image:: https://raw.githubusercontent.com/teapow/django-envi/master/docs/images/collage.png
+.. image:: http://i.imgur.com/5n9gFbn.png
 
 
 Quickstart
@@ -81,3 +81,16 @@ Extending via subclassing
 -------------------------
 
 TODO: How to.
+
+
+Changelog
+=========
+
+* 0.2: Repackaged without unnecessary docs/images directory. All documentation
+  can be found in README.rst.
+
+* 0.1.2: Fixes reference to nonexistent template. Manifest issue.
+
+* 0.1.1: Renamed to django-envi.
+
+* 0.1: Initial version.

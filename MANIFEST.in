@@ -1,4 +1,3 @@
 include LICENSE
 include README.rst
-recursive-include docs *
 recursive-include envi/templates *
