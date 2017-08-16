@@ -87,7 +87,7 @@ Changelog
 =========
 
 +----------------+-----------------------------------------------------------+
-| Version number | Description                                               |
+| Version        | Description                                               |
 +================+===========================================================+
 | 0.2            | Repackaged without unnecessary docs/images directory. All |
 |                | documentation can be found in README.rst.                 |
