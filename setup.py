@@ -14,7 +14,7 @@ setup(
     include_package_data=True,
     license='BSD License',
     description='Lightweight set of middleware classes that inject visual ' \
-                'indicators for each type of environment that a project is' \
+                'indicators for each type of environment that a project is ' \
                 'deployed to.',
     long_description=README,
     url='http://github.com/teapow/django-envi',
