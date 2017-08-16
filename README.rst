@@ -33,9 +33,13 @@ Built-in environments
 =====================
 
 There are a number of built-in environment definitions:
+
 * ``'local'``: A striped grey banner. Appears site-wide (_default_).
+
 * ``'dev'``: A striped blue banner. Appears site-wide.
+
 * ``'staging'``: A striped yellow banner. Appears site-wide.
+
 * ``'production'``: A striped red banner. Only appears in ``/admin``.
 
 
@@ -43,9 +47,13 @@ Configuration
 =============
 
 The following settings are supported in your ``settings.py``:
+
 * ``ENVI_ENVIRONMENT_KEY``: TODO
+
   * Default: ``'local''`
+
 * ``ENVI_ENVIRONMENTS``: TODO
+
 * ``ENVI_ENVIRONMENT``: The current environment. This can either be defined
   explicitly (see below), otherwise it will be set to the corresponding
   dictionary by looking up the ``ENVI_ENVIRONMENT_KEY`` within the
