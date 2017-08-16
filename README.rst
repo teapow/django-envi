@@ -50,7 +50,7 @@ The following settings are supported in your ``settings.py``:
 
 * ``ENVI_ENVIRONMENT_KEY``: TODO
 
-  * Default: ``'local''`
+  * Default: ``'local'``
 
 * ``ENVI_ENVIRONMENTS``: TODO
 
