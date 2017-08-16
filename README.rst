@@ -2,6 +2,8 @@
 django-envi
 ===========
 
+.. contents::
+
 Introduction
 ============
 
