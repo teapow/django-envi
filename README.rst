@@ -86,11 +86,15 @@ TODO: How to.
 Changelog
 =========
 
-* 0.2: Repackaged without unnecessary docs/images directory. All documentation
-  can be found in README.rst.
-
-* 0.1.2: Fixes reference to nonexistent template. Manifest issue.
-
-* 0.1.1: Renamed to django-envi.
-
-* 0.1: Initial version.
++----------------+-----------------------------------------------------------+
+| Version number | Description                                               |
++================+===========================================================+
+| 0.2            | Repackaged without unnecessary docs/images directory. All |
+|                | documentation can be found in README.rst.                 |
++----------------+-----------------------------------------------------------+
+| 0.1.2          | Fixes reference to nonexistent template. Manifest issue.  |
++----------------+-----------------------------------------------------------+
+| 0.1.1          | Renamed to django-envi.                                   |
++----------------+-----------------------------------------------------------+
+| 0.1            | Initial version.                                          |
++----------------+-----------------------------------------------------------+
