@@ -1,0 +1,28 @@
+<style type="text/css">
+    body:before {
+        display: block;
+        line-height: 35px;
+        text-align: center;
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-weight: bold;
+        font-size: 12px;
+        text-shadow: 0 1px 1px #111111;
+        color: white;
+        content: "{{ CONTENT }}";
+        background: repeating-linear-gradient(
+            -45deg,
+            {{ COLOR_A }},
+            {{ COLOR_A }} 10px,
+            {{ COLOR_B }} 10px,
+            {{ COLOR_B }} 20px
+        );
+        border-top: 1px solid black;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    body {
+        padding-bottom: 35px;
+    }
+</style>
