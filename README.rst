@@ -23,8 +23,9 @@ Quickstart
 1. Install the package: ``pip install django-envi``.
 2. Add the ``'envi'`` app to your ``INSTALLED_APPS``.
 3. Install the desired middleware class to ``MIDDLEWARE_CLASSES``:
-   * ``envi.middleware.EnviFooterMiddleware`` injects a
-   sticky footer to all pages that displays the current environment.
+
+   * ``envi.middleware.EnviFooterMiddleware`` injects a sticky footer to all pages that displays the current environment.
+   
 4. In each environment's settings file, add the ``ENVIRONMENT_KEY`` setting,
    with the corresponding environment key string. See below.
 
