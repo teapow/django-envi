@@ -23,11 +23,12 @@ class EnviBaseMiddleware(object):
         _encoding = response.get('Content-Encoding', '')
         _type = response.get('Content-Type', '').split(';')[0]
 
+        is_ajax = request.is_ajax()
         is_streaming = getattr(response, 'streaming', False)
         is_gzip = 'gzip' in _encoding
         is_invalid = _type not in ('text/html', 'application/xhtml+xml')
 
-        if any([is_streaming, is_gzip, is_invalid]):
+        if any([is_streaming, is_gzip, is_invalid, is_ajax]):
             return False
 
         try:
