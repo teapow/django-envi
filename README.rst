@@ -70,7 +70,7 @@ Environments can be created using the following dictionary structure:
 
 .. code-block:: python
 
-  {
+  CUSTOM_ENV = {
       # Required for all subclasses of EnviBaseMiddleware.
       "SHOW_IN_ADMIN": True,
       "SHOW_IN_SITE": True,
@@ -93,8 +93,8 @@ Then, this environment definition can be either:
   .. code-block:: python
 
     ENVI_ENVIRONMENTS = {
-        "custom_key_1": my_environment_dict_1,
-        "custom_key_2": my_environment_dict_2,
+        "custom_key_1": CUSTOM_ENV,
+        "custom_key_2": OTHER_CUSTOM_ENV,
     }
 
     ENVI_ENVIRONMENT_KEY = "custom_key_1"
@@ -103,7 +103,7 @@ Then, this environment definition can be either:
 
   .. code-block:: python
 
-    ENVI_ENVIRONMENT = my_environment_dict_1
+    ENVI_ENVIRONMENT = CUSTOM_ENV
 
 
 Advanced usage
@@ -127,7 +127,8 @@ TODO: How to.
 Compatability
 =============
 
-``django-envi`` has been tested on the following versions of Django:
+The latest build of ``django-envi`` has been tested on the following
+versions of Django:
 
 * ``2.0.1``
 
