@@ -36,7 +36,7 @@ Built-in environments
 
 There are a number of built-in environment definitions:
 
-* ``'local'``: A striped grey banner. Appears site-wide (_default_).
+* ``'local'``: A striped grey banner. Appears site-wide (default).
 
 * ``'dev'``: A striped blue banner. Appears site-wide.
 
