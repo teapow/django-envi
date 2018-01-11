@@ -5,10 +5,15 @@ from django.core.urlresolvers import resolve, Resolver404
 from django.template.loader import render_to_string
 from django.utils.encoding import force_unicode, force_bytes
 
+try:
+    from django.utils.deprecation import MiddlewareMixin as _Base
+except ImportError:
+    _Base = object
+
 from .. import conf
 
 
-class EnviBaseMiddleware(object):
+class EnviBaseMiddleware(_Base):
     """ Base middleware class for environments. """
 
     def __init__(self):
