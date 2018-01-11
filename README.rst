@@ -68,7 +68,7 @@ Creating environments
 
 Environments can be created using the following dictionary structure:
 
-.. code-block::
+.. code-block:: python
 
   {
       # Required for all subclasses of EnviBaseMiddleware.
@@ -90,7 +90,7 @@ Then, this environment definition can be either:
 * Added to the ``ENVI_ENVIRONMENTS`` dictionary, and activated by setting
   the ``ENVI_ENVIRONMENT_KEY`` to the respective key.
 
-  .. code-block::
+  .. code-block:: python
 
     ENVI_ENVIRONMENTS = {
         "custom_key_1": my_environment_dict_1,
@@ -101,7 +101,7 @@ Then, this environment definition can be either:
 
 * Used to set the ``ENVI_ENVIRONMENT`` value directly.
 
-  .. code-block::
+  .. code-block:: python
 
     ENVI_ENVIRONMENT = my_environment_dict_1
 
