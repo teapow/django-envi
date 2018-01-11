@@ -14,7 +14,7 @@ each type of environment that a project is deployed to. Inspired by
 
 .. _this article: https://goo.gl/7cLsOH
 
-.. image:: http://i.imgur.com/5n9gFbn.png
+.. image:: https://i.imgur.com/flSPk7w.png
 
 
 Quickstart
