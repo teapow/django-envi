@@ -84,12 +84,27 @@ Extending via subclassing
 TODO: How to.
 
 
+Compatability
+=============
+
+``django-envi`` has been tested on the following versions of Django:
+
+* ``2.0.1``
+
+* ``1.11.9 (LTS)``
+
+* ``1.8.18 (LTS)``
+
+
 Changelog
 =========
 
 +----------------+-----------------------------------------------------------+
 | Version        | Description                                               |
 +================+===========================================================+
+| 0.2.1          | Bugfix to prevent adding the banner to AJAX requests.     |
+|                | Thanks to @marksweb for the PR.                           |
++----------------+-----------------------------------------------------------+
 | 0.2            | Repackaged without unnecessary docs/images directory. All |
 |                | documentation can be found in README.rst.                 |
 +----------------+-----------------------------------------------------------+

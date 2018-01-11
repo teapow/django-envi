@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-envi',
-    version='0.2',
+    version='0.2.1',
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',
@@ -17,7 +17,7 @@ setup(
                 'indicators for each type of environment that a project is ' \
                 'deployed to.',
     long_description=README,
-    url='http://github.com/teapow/django-envi',
+    url='https://github.com/teapow/django-envi',
     author='Thomas Power',
     author_email='thomaspwr@gmail.com',
     classifiers=[],
