@@ -2,6 +2,9 @@
 django-envi
 ===========
 
+.. image:: https://travis-ci.org/teapow/django-envi.svg?branch=master
+   :target: https://travis-ci.org/teapow/django-envi
+
 .. contents:: Table of contents
 
 
