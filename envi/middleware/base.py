@@ -14,15 +14,15 @@ from .. import conf
 
 
 class EnviBaseMiddleware(_Base):
-    """ Base middleware class for environments. """
+    """Base middleware class for environments."""
 
     def __init__(self):
-        """ Attach the environment to self. """
+        """Attach the environment to self."""
         super(EnviBaseMiddleware, self).__init__()
         self.env = conf.ENVIRONMENT or {}
 
     def response_needs_updating(self, request, response):
-        """ Determines whether the environment should be shown. """
+        """Determines whether the environment should be shown."""
         # Check for response types where the banner can't be inserted.
         # Adapted from django_debug_toolbar.
         _encoding = response.get('Content-Encoding', '')
@@ -47,31 +47,27 @@ class EnviBaseMiddleware(_Base):
         return (show_in_admin and is_admin) or (show_in_site and not is_admin)
 
     def update_response(self, response):
-        """ Abstract method. Needs to be implemented in subclasses. """
+        """Abstract method. Needs to be implemented in subclasses."""
         raise NotImplemented
 
-    def update_response_headers(self, response):
-        """ Updates the response headers. """
-        if response.get('Content-Length'):
-            response['Content-Length'] = len(response.content)
-
     def process_response(self, request, response):
-        """ Injects the banner prior to the response being returned. """
+        """Injects the banner prior to the response being returned."""
         if self.response_needs_updating(request=request, response=response):
             self.update_response(response=response)
-            self.update_response_headers(response=response)
+
+            if response.get('Content-Length'):
+                response['Content-Length'] = len(response.content)
 
         return response
 
 
 class EnviBaseTemplateMiddleware(EnviBaseMiddleware):
-    """ Extends the EnviBaseMiddleware to support templates. """
+    """Extends the EnviBaseMiddleware to support templates."""
     template_name = None
 
-    def get_context_data(self, **kwargs):
-        """ Allows update of context data. """
+    def get_context_data(self):
+        """Allows update of context data."""
         context = self.env.get('CONTEXT', {})
-        context.update(**kwargs)
         return context
 
     def update_response(self, response):
@@ -82,11 +78,9 @@ class EnviBaseTemplateMiddleware(EnviBaseMiddleware):
             return response
 
         # Insert the style rule just before the closing </head> tag.
-        head_html = render_to_string(
-            template_name=self.template_name,
-            context=self.get_context_data(),
-        ) + '</head>'
-        html = html.replace('</head>', head_html, 1)
+        context = self.get_context_data()
+        head_html = render_to_string(self.template_name, context)
+        html = html.replace('</head>', head_html + '</head>', 1)
 
         # Finally, update the response.
         response.content = force_bytes(html)

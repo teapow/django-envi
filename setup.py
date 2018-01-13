@@ -9,16 +9,18 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-envi',
+    zip_safe=False,
     version='0.2.1',
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',
-    description='Lightweight set of middleware classes that inject visual ' \
-                'indicators for each type of environment that a project is ' \
+    description='Lightweight set of middleware classes that inject visual '
+                'indicators for each type of environment that a project is '
                 'deployed to.',
     long_description=README,
     url='https://github.com/teapow/django-envi',
     author='Thomas Power',
     author_email='thomaspwr@gmail.com',
     classifiers=[],
+    test_suite='envi.run_tests.run',
 )
