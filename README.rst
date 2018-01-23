@@ -2,10 +2,17 @@
 django-envi
 ===========
 
-.. image:: https://travis-ci.org/teapow/django-envi.svg?branch=master
+|travis| |codacy| 
+
+.. |travis| image:: https://travis-ci.org/teapow/django-envi.svg?branch=master
    :target: https://travis-ci.org/teapow/django-envi
 
-.. contents:: Table of contents
+.. |codacy| image:: https://api.codacy.com/project/badge/Grade/d1503b14ca7c4d96bcd0141ffbbb2d26    
+   :target: https://www.codacy.com/app/teapow/django-envi
+
+----
+
+.. contents:: Navigation
 
 
 Introduction
