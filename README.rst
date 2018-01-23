@@ -10,8 +10,6 @@ django-envi
 .. |codacy| image:: https://api.codacy.com/project/badge/Grade/d1503b14ca7c4d96bcd0141ffbbb2d26    
    :target: https://www.codacy.com/app/teapow/django-envi
 
-----
-
 .. contents:: Navigation
 
 
