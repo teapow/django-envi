@@ -64,7 +64,7 @@ class EnviBaseMiddleware(_Base):
 
     def update_response(self, response):
         """Abstract method. Needs to be implemented in subclasses."""
-        raise NotImplemented
+        raise NotImplementedError
 
     def process_response(self, request, response):
         """Injects the banner prior to the response being returned."""
