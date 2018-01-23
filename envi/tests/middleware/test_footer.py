@@ -6,6 +6,3 @@ from .base import BaseMiddlewareTestCase
 
 class EnviFooterMiddlewareTestCase(BaseMiddlewareTestCase):
     """Test case for EnviFooterMiddleware."""
-
-    def test_example(self):
-        self.assertTrue(True)

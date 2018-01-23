@@ -8,17 +8,17 @@ from . import constants
 ENVIRONMENT_KEY = getattr(
     settings,
     'ENVI_ENVIRONMENT_KEY',
-    'local'
+    'local',
 )
 
 ENVIRONMENTS = getattr(
     settings,
     'ENVI_ENVIRONMENTS',
-    constants.ENVIRONMENTS
+    constants.ENVIRONMENTS,
 )
 
 ENVIRONMENT = getattr(
     settings,
     'ENVI_ENVIRONMENT',
-    constants.ENVIRONMENTS[ENVIRONMENT_KEY]
+    constants.ENVIRONMENTS[ENVIRONMENT_KEY],
 )

@@ -4,22 +4,38 @@ from __future__ import absolute_import, unicode_literals
 from django.core.urlresolvers import resolve, Resolver404
 from django.template.loader import render_to_string
 from django.utils.encoding import force_unicode, force_bytes
+from django.utils.translation import ugettext_lazy as _
+
+from .. import constants
+from ..conf import ENVIRONMENT
 
 try:
     from django.utils.deprecation import MiddlewareMixin as _Base
 except ImportError:
     _Base = object
 
-from .. import conf
-
 
 class EnviBaseMiddleware(_Base):
     """Base middleware class for environments."""
 
-    def __init__(self):
+    _required_keys = [
+        constants.ENVI_KEY_SHOW_IN_SITE,
+        constants.ENVI_KEY_SHOW_IN_ADMIN,
+    ]
+
+    def __init__(self, environment=None):
         """Attach the environment to self."""
         super(EnviBaseMiddleware, self).__init__()
-        self.env = conf.ENVIRONMENT or {}
+
+        self.environment = environment or ENVIRONMENT
+        self.validate_environment()
+
+    def validate_environment(self):
+        """Checks that the necessary keys are present in the environment."""
+        for key in self._required_keys:
+            if key not in self.environment.keys():
+                message = _("Key: {k} not present in current environment.")
+                raise KeyError(message.format(k=key))
 
     def response_needs_updating(self, request, response):
         """Determines whether the environment should be shown."""
@@ -42,8 +58,8 @@ class EnviBaseMiddleware(_Base):
             return False
 
         # Check that the current environment is enabled for the request.
-        show_in_admin = self.env.get('SHOW_IN_ADMIN')
-        show_in_site = self.env.get('SHOW_IN_SITE')
+        show_in_admin = self.environment.get(constants.ENVI_KEY_SHOW_IN_ADMIN)
+        show_in_site = self.environment.get(constants.ENVI_KEY_SHOW_IN_SITE)
         return (show_in_admin and is_admin) or (show_in_site and not is_admin)
 
     def update_response(self, response):
@@ -65,9 +81,13 @@ class EnviBaseTemplateMiddleware(EnviBaseMiddleware):
     """Extends the EnviBaseMiddleware to support templates."""
     template_name = None
 
+    _required_keys = EnviBaseMiddleware._required_keys + [
+        constants.ENVI_KEY_CONTEXT,
+    ]
+
     def get_context_data(self):
         """Allows update of context data."""
-        context = self.env.get('CONTEXT', {})
+        context = self.environment.get(constants.ENVI_KEY_CONTEXT, {})
         return context
 
     def update_response(self, response):
