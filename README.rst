@@ -10,8 +10,8 @@ django-envi
 .. |codacy| image:: https://api.codacy.com/project/badge/Grade/d1503b14ca7c4d96bcd0141ffbbb2d26    
    :target: https://www.codacy.com/app/teapow/django-envi
    
-.. |coverage| image:: https://coveralls.io/repos/github/teapow/django-envi/badge.svg?branch=master
-   :target: https://coveralls.io/github/teapow/django-envi
+.. |coverage| image:: https://codecov.io/gh/teapow/django-envi/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/teapow/django-envi
 
 .. |pypi| image:: https://badge.fury.io/py/django-envi.svg
     :target: https://badge.fury.io/py/django-envi
