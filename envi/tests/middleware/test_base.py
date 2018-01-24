@@ -74,6 +74,17 @@ class EnviBaseMiddlewareTestCase(BaseMiddlewareTestCase):
         middleware.process_response(request, response)
         middleware.update_response.assert_not_called()
 
+    def test_update_response_raises_exception(self):
+        # Test that update_response() needs to be overridden in subclasses.
+        middleware = self.middleware_class()
+        middleware.response_needs_updating = MagicMock(return_value=True)
+
+        request = MagicMock()
+        response = MagicMock()
+
+        with self.assertRaises(NotImplementedError):
+            middleware.process_response(request, response)
+
 
 class EnviBaseTemplateMiddlewareTestCase(BaseMiddlewareTestCase):
     """Tests for EnviBaseTemplateMiddleware."""
