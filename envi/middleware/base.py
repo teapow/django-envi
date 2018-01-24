@@ -34,26 +34,26 @@ class EnviBaseMiddleware(_Base):
         """Checks that the necessary keys are present in the environment."""
         for key in self._required_keys:
             if key not in self.environment.keys():
-                message = _("Key: {k} not present in current environment.")
+                message = _("Key: {k} not present in current environment")
                 raise KeyError(message.format(k=key))
 
     def response_needs_updating(self, request, response):
         """Determines whether the environment should be shown."""
         # Check for response types where the banner can't be inserted.
         # Adapted from django_debug_toolbar.
-        _encoding = response.get('Content-Encoding', '')
-        _type = response.get('Content-Type', '').split(';')[0]
+        _encoding = response.get("Content-Encoding", "")
+        _type = response.get("Content-Type", "").split(";")[0]
 
         is_ajax = request.is_ajax()
-        is_streaming = getattr(response, 'streaming', False)
-        is_gzip = 'gzip' in _encoding
-        is_invalid = _type not in ('text/html', 'application/xhtml+xml')
+        is_streaming = getattr(response, "streaming", False)
+        is_gzip = "gzip" in _encoding
+        is_invalid = _type not in ("text/html", "application/xhtml+xml")
 
         if any([is_streaming, is_gzip, is_invalid, is_ajax]):
             return False
 
         try:
-            is_admin = resolve(request.path).app_name == 'admin'
+            is_admin = resolve(request.path).app_name == "admin"
         except Resolver404:
             return False
 
@@ -69,10 +69,10 @@ class EnviBaseMiddleware(_Base):
     def process_response(self, request, response):
         """Injects the banner prior to the response being returned."""
         if self.response_needs_updating(request=request, response=response):
-            self.update_response(response=response)
+            response = self.update_response(response=response)
 
-            if response.get('Content-Length'):
-                response['Content-Length'] = len(response.content)
+            if response.get("Content-Length"):
+                response["Content-Length"] = len(response.content)
 
         return response
 
@@ -88,19 +88,26 @@ class EnviBaseTemplateMiddleware(EnviBaseMiddleware):
     def get_context_data(self):
         """Allows update of context data."""
         context = self.environment.get(constants.ENVI_KEY_CONTEXT, {})
-        return context
+        return {constants.ENVI_TEMPLATE_CONTEXT_ACCESSOR: context}
 
-    def update_response(self, response):
+    def get_head_html(self, template_name=None):
+        """Return a string to be injected in to the response <head> tag."""
+        context = self.get_context_data()
+        return render_to_string(template_name or self.template_name, context)
+
+    def update_response(self, response, head_html=None):
         # Extract the HTML content from the response.
         html = force_unicode(response.content)
-        if html.find('</head>') < 0:
+        if html.find("</head>") < 0:
             # No closing </head>, assuming it's a HTML snippet.
             return response
 
+        if not head_html:
+            head_html = self.get_head_html()
+
         # Insert the style rule just before the closing </head> tag.
-        context = self.get_context_data()
-        head_html = render_to_string(self.template_name, context)
-        html = html.replace('</head>', head_html + '</head>', 1)
+        html = html.replace("</head>", head_html + "</head>", 1)
 
         # Finally, update the response.
         response.content = force_bytes(html)
+        return response

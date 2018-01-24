@@ -44,9 +44,8 @@ SETTINGS = {
     ),
     'TEMPLATES': [{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(APP_DIR, 'tests/templates')
-        ],
+        'APP_DIRS': True,
+        'DIRS': [],
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',

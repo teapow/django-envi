@@ -48,3 +48,5 @@ ENVIRONMENTS = {
         ENVI_KEY_SHOW_IN_SITE: False,
     }
 }
+
+ENVI_TEMPLATE_CONTEXT_ACCESSOR = "envi_context"

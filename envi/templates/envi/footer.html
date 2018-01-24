@@ -8,13 +8,13 @@
         font-size: 12px;
         text-shadow: 0 1px 1px #111111;
         color: white;
-        content: "{{ CONTENT }}";
+        content: "{{ envi_context.CONTENT }}";
         background: repeating-linear-gradient(
             -45deg,
-            {{ COLOR_A }},
-            {{ COLOR_A }} 10px,
-            {{ COLOR_B }} 10px,
-            {{ COLOR_B }} 20px
+            {{ envi_context.COLOR_A }},
+            {{ envi_context.COLOR_A }} 10px,
+            {{ envi_context.COLOR_B }} 10px,
+            {{ envi_context.COLOR_B }} 20px
         );
         border-top: 1px solid black;
         position: fixed;
