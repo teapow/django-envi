@@ -5,8 +5,8 @@ from django.template.loader import render_to_string
 from mock import MagicMock
 
 from .base import BaseMiddlewareTestCase
-from ...middleware import EnviFooterMiddleware
 from ... import constants
+from ...middleware import EnviFooterMiddleware
 
 
 class EnviFooterMiddlewareTestCase(BaseMiddlewareTestCase):

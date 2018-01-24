@@ -95,18 +95,15 @@ class EnviBaseTemplateMiddleware(EnviBaseMiddleware):
         context = self.get_context_data()
         return render_to_string(template_name or self.template_name, context)
 
-    def update_response(self, response, head_html=None):
+    def update_response(self, response):
         # Extract the HTML content from the response.
         html = force_unicode(response.content)
         if html.find("</head>") < 0:
             # No closing </head>, assuming it's a HTML snippet.
             return response
 
-        if not head_html:
-            head_html = self.get_head_html()
-
         # Insert the style rule just before the closing </head> tag.
-        html = html.replace("</head>", head_html + "</head>", 1)
+        html = html.replace("</head>", self.get_head_html() + "</head>", 1)
 
         # Finally, update the response.
         response.content = force_bytes(html)

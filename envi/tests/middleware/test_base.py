@@ -196,6 +196,8 @@ class EnviBaseTemplateMiddlewareTestCase(BaseMiddlewareTestCase):
         response = MagicMock(content=markup)
 
         middleware = self.middleware_class()
-        updated_response = middleware.update_response(response, head_html)
+        middleware.get_head_html = MagicMock(return_value=head_html)
+
+        updated_response = middleware.update_response(response)
         self.assertEqual(response, updated_response)
         self.assertEqual(len(response.content), len(markup) + len(head_html))
