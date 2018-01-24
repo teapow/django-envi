@@ -2,5 +2,14 @@ language: python
 sudo: false
 python:
  - "2.7"
-install: pip install tox-travis
-script: tox
+install: pip install codacy-coverage coverage tox-travis
+before_script:
+  coverage erase
+script:
+  tox
+after_success:
+  coverage combine &&
+  coverage report &&
+  coverage xml -o coverage/xml/coverage.xml &&
+  coverage html --directory=coverage/html &&
+  python-codacy-coverage -r coverage/xml/coverage.xml
