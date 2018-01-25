@@ -54,7 +54,7 @@ class EnviBaseMiddleware(_Base):
 
         try:
             is_admin = resolve(request.path).app_name == "admin"
-        except Resolver404:
+        except (Resolver404, TypeError):
             return False
 
         # Check that the current environment is enabled for the request.

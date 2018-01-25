@@ -99,6 +99,201 @@ class EnviBaseMiddlewareTestCase(BaseMiddlewareTestCase):
         with self.assertRaises(NotImplementedError):
             middleware.process_response(request, response)
 
+    def test_response_needs_updating_returns_false_for_ajax(self):
+        # Tests that response_needs_updating() returns False if the request
+        # is ajax.
+        middleware = self.middleware_class()
+
+        request = MagicMock()
+        request.is_ajax = MagicMock(return_value=True)
+
+        response_dict = {
+            "Content-Encoding": "",
+            "Content-Type": "text/html",
+        }
+
+        response = MagicMock(streaming=False)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertFalse(middleware.response_needs_updating(request, response))
+
+    def test_response_needs_updating_returns_false_for_streaming(self):
+        # Tests that response_needs_updating() returns False if the response
+        # is streaming.
+        middleware = self.middleware_class()
+
+        request = MagicMock()
+        request.is_ajax = MagicMock(return_value=False)
+
+        response_dict = {
+            "Content-Encoding": "",
+            "Content-Type": "text/html",
+        }
+
+        response = MagicMock(streaming=True)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertFalse(middleware.response_needs_updating(request, response))
+
+    def test_response_needs_updating_returns_false_for_gzip(self):
+        # Tests that response_needs_updating() returns False if the response
+        # is streaming.
+        middleware = self.middleware_class()
+
+        request = MagicMock()
+        request.is_ajax = MagicMock(return_value=False)
+
+        response_dict = {
+            "Content-Encoding": "gzip",
+            "Content-Type": "text/html",
+        }
+
+        response = MagicMock(streaming=False)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertFalse(middleware.response_needs_updating(request, response))
+
+    def test_response_needs_updating_returns_false_for_content_type(self):
+        # Tests that response_needs_updating() returns False if the response
+        # content type is not one of text/html or application/xhtml+xml.
+        middleware = self.middleware_class()
+
+        request = MagicMock()
+        request.is_ajax = MagicMock(return_value=False)
+
+        response_dict = {
+            "Content-Encoding": "",
+            "Content-Type": "",
+        }
+
+        response = MagicMock(streaming=False)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertFalse(middleware.response_needs_updating(request, response))
+
+    def test_response_needs_updating_returns_false_if_cant_infer_admin(self):
+        # Tests that response_needs_updating() returns False if it fails
+        # to resolve the request path.
+        middleware = self.middleware_class()
+
+        request = MagicMock()  # request.path doesn't exist.
+        request.is_ajax = MagicMock(return_value=False)
+
+        response_dict = {
+            "Content-Encoding": "",
+            "Content-Type": "text/html",
+        }
+
+        response = MagicMock(streaming=False)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertFalse(middleware.response_needs_updating(request, response))
+
+    def test_response_needs_updating_returns_false_is_admin(self):
+        # Tests that response_needs_updating() returns False if the request
+        # is for an admin page, but the constants.ENVI_KEY_SHOW_IN_ADMIN
+        # is False.
+        environment = {
+            constants.ENVI_KEY_SHOW_IN_ADMIN: False,
+            constants.ENVI_KEY_SHOW_IN_SITE: True,
+        }
+        middleware = self.middleware_class(environment)
+
+        request = MagicMock()
+        request.path = "/admin/"
+        request.is_ajax = MagicMock(return_value=False)
+
+        response_dict = {
+            "Content-Encoding": "",
+            "Content-Type": "text/html",
+        }
+
+        response = MagicMock(streaming=False)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertFalse(middleware.response_needs_updating(request, response))
+
+    def test_response_needs_updating_returns_false_is_site(self):
+        # Tests that response_needs_updating() returns False if the request
+        # is for a site page, but the constants.ENVI_KEY_SHOW_IN_SITE
+        # is False.
+        environment = {
+            constants.ENVI_KEY_SHOW_IN_ADMIN: True,
+            constants.ENVI_KEY_SHOW_IN_SITE: False,
+        }
+        middleware = self.middleware_class(environment)
+
+        request = MagicMock()
+        request.path = "/"
+        request.is_ajax = MagicMock(return_value=False)
+
+        response_dict = {
+            "Content-Encoding": "",
+            "Content-Type": "text/html",
+        }
+
+        response = MagicMock(streaming=False)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertFalse(middleware.response_needs_updating(request, response))
+
+    def test_response_needs_updating_returns_true_is_admin(self):
+        # Tests that response_needs_updating() returns True if the request
+        # is for an admin page, and the constants.ENVI_KEY_SHOW_IN_ADMIN
+        # is also True.
+        environment = {
+            constants.ENVI_KEY_SHOW_IN_ADMIN: True,
+            constants.ENVI_KEY_SHOW_IN_SITE: False,
+        }
+        middleware = self.middleware_class(environment)
+
+        request = MagicMock()
+        request.path = "/admin/"
+        request.is_ajax = MagicMock(return_value=False)
+
+        response_dict = {
+            "Content-Encoding": "",
+            "Content-Type": "text/html",
+        }
+
+        response = MagicMock(streaming=False)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertTrue(middleware.response_needs_updating(request, response))
+
+    def test_response_needs_updating_returns_true_is_site(self):
+        # Tests that response_needs_updating() returns True if the request
+        # is for an admin page, and the constants.ENVI_KEY_SHOW_IN_SITE
+        # is also True.
+        environment = {
+            constants.ENVI_KEY_SHOW_IN_ADMIN: False,
+            constants.ENVI_KEY_SHOW_IN_SITE: True,
+        }
+        middleware = self.middleware_class(environment)
+
+        request = MagicMock()
+        request.path = "/"
+        request.is_ajax = MagicMock(return_value=False)
+
+        response_dict = {
+            "Content-Encoding": "",
+            "Content-Type": "text/html",
+        }
+
+        response = MagicMock(streaming=False)
+        response.__getitem__.side_effect = lambda k: response_dict[k]
+        response.get.side_effect = lambda k, d=None: response_dict.get(k, d)
+
+        self.assertTrue(middleware.response_needs_updating(request, response))
+
 
 class EnviBaseTemplateMiddlewareTestCase(BaseMiddlewareTestCase):
     """Tests for EnviBaseTemplateMiddleware."""
