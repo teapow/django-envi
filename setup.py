@@ -13,7 +13,7 @@ setup(
     version='0.2.1',
     packages=find_packages(),
     include_package_data=True,
-    license='BSD License',
+    license='MIT',
     description='Lightweight set of middleware classes that inject visual '
                 'indicators for each type of environment that a project is '
                 'deployed to.',
