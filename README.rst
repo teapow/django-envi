@@ -41,8 +41,8 @@ Quickstart
    * ``envi.middleware.EnviFooterMiddleware`` injects a sticky footer to
      all pages that displays the current environment.
 
-4. In each environment's settings file, add the ``ENVIRONMENT_KEY`` setting,
-   with the corresponding environment key string. See below.
+4. In each environment's settings file, add the ``ENVI_ENVIRONMENT_KEY`` 
+   setting, with the corresponding environment key string. See below.
 
 
 Built-in environments
@@ -136,19 +136,6 @@ Extending via subclassing
 -------------------------
 
 TODO: How to.
-
-
-Compatability
-=============
-
-The latest build of ``django-envi`` has been tested on the following
-versions of Django:
-
-* ``2.0.1``
-
-* ``1.11.9 (LTS)``
-
-* ``1.8.18 (LTS)``
 
 
 Changelog
