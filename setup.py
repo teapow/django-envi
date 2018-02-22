@@ -21,6 +21,21 @@ setup(
     url='https://github.com/teapow/django-envi',
     author='Thomas Power',
     author_email='thomaspwr@gmail.com',
-    classifiers=[],
+    install_requires=[
+        'Django>=1.6,<2',  
+    ],
+    classifiers=[
+        'Framework :: Django',
+        'Framework :: Django :: 1.6',
+        'Framework :: Django :: 1.7',
+        'Framework :: Django :: 1.8',
+        'Framework :: Django :: 1.9',
+        'Framework :: Django :: 1.10',
+        'Framework :: Django :: 1.11',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Topic :: Utilities',
+    ],
     test_suite='envi.run_tests.run',
 )
