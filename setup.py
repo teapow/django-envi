@@ -22,7 +22,7 @@ setup(
     author='Thomas Power',
     author_email='thomaspwr@gmail.com',
     install_requires=[
-        'Django>=1.6,<2',  
+        'Django>=1.6,<2',
     ],
     classifiers=[
         'Framework :: Django',
