@@ -28,7 +28,7 @@ class EnviBaseMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_ADMIN: True,
             constants.ENVI_KEY_CONTEXT: {},
         }
-        middleware = self.middleware_class(environment)
+        middleware = self.middleware_class(environment=environment)
         self.assertEqual(middleware.environment, environment)
 
     def test_required_keys(self):
@@ -38,31 +38,21 @@ class EnviBaseMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_ADMIN: True,
         }
         # Should not raise an exception when run.
-        _ = self.middleware_class(environment)
+        _ = self.middleware_class(environment=environment)
 
     def test_required_keys_exception_a(self):
         # Tests that a KeyError is raised if a required key is not present.
         # constants.ENVI_KEY_SHOW_IN_ADMIN missing.
         environment = {constants.ENVI_KEY_SHOW_IN_SITE: True}
-        with self.assertRaises(KeyError) as manager:
-            _ = self.middleware_class(environment)
-
-        self.assertEqual(
-            KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_SHOW_IN_ADMIN),
-            manager.exception.message,
-        )
+        with self.assertRaisesMessage(KeyError, KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_SHOW_IN_ADMIN)):
+            _ = self.middleware_class(environment=environment)
 
     def test_required_keys_exception_b(self):
         # Tests that a KeyError is raised if a required key is not present.
         # constants.ENVI_KEY_SHOW_IN_SITE missing.
         environment = {constants.ENVI_KEY_SHOW_IN_ADMIN: True}
-        with self.assertRaises(KeyError) as manager:
-            _ = self.middleware_class(environment)
-
-        self.assertEqual(
-            KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_SHOW_IN_SITE),
-            manager.exception.message,
-        )
+        with self.assertRaisesMessage(KeyError, KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_SHOW_IN_SITE)):
+            _ = self.middleware_class(environment=environment)
 
     def test_update_response_called(self):
         # Test that update_response() is called if response_needs_updating
@@ -202,7 +192,7 @@ class EnviBaseMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_ADMIN: False,
             constants.ENVI_KEY_SHOW_IN_SITE: True,
         }
-        middleware = self.middleware_class(environment)
+        middleware = self.middleware_class(environment=environment)
 
         request = MagicMock()
         request.path = "/admin/"
@@ -227,7 +217,7 @@ class EnviBaseMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_ADMIN: True,
             constants.ENVI_KEY_SHOW_IN_SITE: False,
         }
-        middleware = self.middleware_class(environment)
+        middleware = self.middleware_class(environment=environment)
 
         request = MagicMock()
         request.path = "/"
@@ -252,7 +242,7 @@ class EnviBaseMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_ADMIN: True,
             constants.ENVI_KEY_SHOW_IN_SITE: False,
         }
-        middleware = self.middleware_class(environment)
+        middleware = self.middleware_class(environment=environment)
 
         request = MagicMock()
         request.path = "/admin/"
@@ -277,7 +267,7 @@ class EnviBaseMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_ADMIN: False,
             constants.ENVI_KEY_SHOW_IN_SITE: True,
         }
-        middleware = self.middleware_class(environment)
+        middleware = self.middleware_class(environment=environment)
 
         request = MagicMock()
         request.path = "/"
@@ -308,7 +298,7 @@ class EnviBaseTemplateMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_CONTEXT: {},
         }
         # Should not raise an exception when run.
-        _ = self.middleware_class(environment)
+        _ = self.middleware_class(environment=environment)
 
     def test_required_keys_exception_a(self):
         # Tests that a KeyError is raised if a required key is not present.
@@ -317,13 +307,8 @@ class EnviBaseTemplateMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_SITE: True,
             constants.ENVI_KEY_SHOW_IN_ADMIN: True,
         }
-        with self.assertRaises(KeyError) as manager:
-            _ = self.middleware_class(environment)
-
-        self.assertEqual(
-            KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_CONTEXT),
-            manager.exception.message,
-        )
+        with self.assertRaisesMessage(KeyError, KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_CONTEXT)):
+            _ = self.middleware_class(environment=environment)
 
     def test_required_keys_exception_b(self):
         # Tests that a KeyError is raised if a required key is not present.
@@ -332,13 +317,8 @@ class EnviBaseTemplateMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_SITE: True,
             constants.ENVI_KEY_CONTEXT: {},
         }
-        with self.assertRaises(KeyError) as manager:
-            _ = self.middleware_class(environment)
-
-        self.assertEqual(
-            KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_SHOW_IN_ADMIN),
-            manager.exception.message,
-        )
+        with self.assertRaisesMessage(KeyError, KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_SHOW_IN_ADMIN)):
+            _ = self.middleware_class(environment=environment)
 
     def test_required_keys_exception_c(self):
         # Tests that a KeyError is raised if a required key is not present.
@@ -347,13 +327,8 @@ class EnviBaseTemplateMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_SHOW_IN_ADMIN: True,
             constants.ENVI_KEY_CONTEXT: {},
         }
-        with self.assertRaises(KeyError) as manager:
-            _ = self.middleware_class(environment)
-
-        self.assertEqual(
-            KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_SHOW_IN_SITE),
-            manager.exception.message,
-        )
+        with self.assertRaisesMessage(KeyError, KEY_ERROR_FORMAT.format(k=constants.ENVI_KEY_SHOW_IN_SITE)):
+            _ = self.middleware_class(environment=environment)
 
     def test_get_context_data(self):
         # Tests that get_context_data() returns the value of the current
@@ -364,7 +339,7 @@ class EnviBaseTemplateMiddlewareTestCase(BaseMiddlewareTestCase):
             constants.ENVI_KEY_CONTEXT: {"hello": "world"},
         }
 
-        middleware = self.middleware_class(environment)
+        middleware = self.middleware_class(environment=environment)
         result = middleware.get_context_data()
         self.assertEqual(
             result[constants.ENVI_TEMPLATE_CONTEXT_ACCESSOR],

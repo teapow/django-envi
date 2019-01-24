@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import resolve, Resolver404
 from django.template.loader import render_to_string
-from django.utils.encoding import force_unicode, force_bytes
+from django.utils.encoding import force_text, force_bytes
 from django.utils.translation import ugettext_lazy as _
 
 from .. import constants
@@ -23,10 +23,9 @@ class EnviBaseMiddleware(_Base):
         constants.ENVI_KEY_SHOW_IN_ADMIN,
     ]
 
-    def __init__(self, environment=None):
+    def __init__(self, get_response=None, environment=None):
         """Attach the environment to self."""
-        super(EnviBaseMiddleware, self).__init__()
-
+        super(EnviBaseMiddleware, self).__init__(get_response)
         self.environment = environment or ENVIRONMENT
         self.validate_environment()
 
@@ -97,7 +96,7 @@ class EnviBaseTemplateMiddleware(EnviBaseMiddleware):
 
     def update_response(self, response):
         # Extract the HTML content from the response.
-        html = force_unicode(response.content)
+        html = force_text(response.content)
         if html.find("</head>") < 0:
             # No closing </head>, assuming it's a HTML snippet.
             return response
