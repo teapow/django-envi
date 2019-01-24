@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.core.urlresolvers import resolve, Resolver404
+try:
+    from django.core.urlresolvers import resolve, Resolver404
+except ImportError:
+    from django.urls import resolve, Resolver404
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text, force_bytes
 from django.utils.translation import ugettext_lazy as _

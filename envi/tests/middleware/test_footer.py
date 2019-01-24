@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.template.loader import render_to_string
+from django.utils.encoding import force_text
 from mock import MagicMock
 
 from .base import BaseMiddlewareTestCase
@@ -36,4 +37,4 @@ class EnviFooterMiddlewareTestCase(BaseMiddlewareTestCase):
         middleware = self.middleware_class(environment=environment)
         updated_response = middleware.update_response(response)
 
-        self.assertIn(head_markup, updated_response.content)
+        self.assertIn(head_markup, force_text(updated_response.content))
