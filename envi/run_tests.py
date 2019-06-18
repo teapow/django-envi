@@ -34,7 +34,7 @@ SETTINGS = {
             'NAME': os.path.join(APP_DIR, 'db.sqlite3'),
         },
     },
-    'MIDDLEWARE_CLASSES': (
+    'MIDDLEWARE': (
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
